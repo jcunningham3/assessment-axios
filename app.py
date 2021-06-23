@@ -49,8 +49,6 @@ def handle_lucky_user():
                 "email": ["This field is required."]
             }
         })
-        if data['email'] == '':
-            return render_template('index.html', email="This field is required.")
     elif isinstance(data['email'], str) == False:
         return jsonify(
         {"error":
@@ -62,66 +60,58 @@ def handle_lucky_user():
     # return year error in JSON
     elif data['year'] == '':
         return jsonify(
-        {"error":
-            {
-                "year": ["This field is required."]
-            }
-        })
-        if data['year'] == '':
-            return render_template('index.html', year="This field is required.")
+            {"error":
+                {
+                    "year": ["This field is required."]
+                }
+            })
     elif data['year'] < 1900:
         return jsonify(
-        {"error":
-            {
-                "year": ["This field must be greater than or equal to 1900."]
-            }
-        })
+            {"error":
+                {
+                    "year": ["This field must be greater than or equal to 1900."]
+                }
+            })
     elif data['year'] > 2020:
         return jsonify(
-        {"error":
-            {
-                "year": ["This field must be leass than or equal to 2020."]
-            }
-        })
+            {"error":
+                {
+                    "year": ["This field must be less than or equal to 2020."]
+                }
+            })
 
     # return color error in JSON
     elif data['color'] == '':
         return jsonify(
-        {"error":
-            {
-                "color": ["This field is required."]
-            }
-        })
+            {"error":
+                {
+                    "color": ["This field is required."]
+                }
+            })
     elif isinstance(data['color'], str) == False:
         return jsonify(
-        {"error":
-            {
-                "name": ["This field is must be a string."]
-            }
-        })
+            {"error":
+                {
+                    "name": ["This field is must be a string."]
+                }
+            })
     elif data['color'] != 'red':
         if data['color'] != 'orange':
             if data['color'] != 'green':
                 if data['color'] != 'blue':
                     return jsonify(
-                    {"error":
-                        {
-                            "color": ["This field is must red, orange, green, or blue."]
-                        }
-                    })
-    elif data['num_fact'] != '':
-        return jsonify(
-        {"num request":
-            {
-                "num_fact": ["posted successfully"]
-            }
-        })
-    elif data['year_fact'] != '':
-        return jsonify(
-        {"year request":
-            {
-                "year_fact": ["posted successfully"]
-            }
-        })
+                        {"error":
+                            {
+                                "color": ["This field is must red, orange, green, or blue."]
+                            }
+                        })
     else:
-        return data['num_fact']
+        return jsonify(
+            {
+                "success":
+                    {
+                        "num_fact": [data['num_fact']],
+                        "year_fact": [data['year_fact']]
+                    }
+            }
+        )

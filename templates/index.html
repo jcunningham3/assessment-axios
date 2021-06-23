@@ -6,15 +6,16 @@
 <body>
 <h1>It's Your Lucky Day</h1>
 <form id="lucky-form">
-  <div>Name: <input id="name"> <b id="name-err">{{ name_err }}</b> </div>
-  <div>Birth Year: <input id="year"> <b id="year-err">{{ year_err }}</b> </div>
-  <div>Email: <input id="email"> <b id="email-err">{{ email_err }}</b> </div>
-  <div>Color: <input id="color"> <b id="color-err">{{ color_err }}</b> </div>
+  <div>Name: <input id="name"> <b id="name-err"></b> </div>
+  <div>Birth Year: <input id="year"> <b id="year-err"></b> </div>
+  <div>Email: <input id="email"> <b id="email-err"></b> </div>
+  <div>Color: <input id="color"> <b id="color-err"></b> </div>
   <button>I Want To Feel Lucky!</button>
 </form>
 
 <div id="lucky-results">
-
+  {{ num }}
+  {{ year }}
 </div>
 
 <script src="https://unpkg.com/axios/dist/axios.js"></script>
