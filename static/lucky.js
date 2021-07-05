@@ -34,6 +34,11 @@ $("#lucky-form").on("submit", async function (event) {
       //console the response data
       console.log(res);
 
+      //if there ae no errors
+      if(res.data.success){
+        document.querySelector('#lucky-results').innerHTML = res.data.success.num_fact[0].data + "<br>" + res.data.success.year_fact[0].data;
+      }
+
       //handling name errors
       if(res.data.error.name){
         document.querySelector('#name-err').innerHTML = res.data.error.name[0];
@@ -63,15 +68,11 @@ $("#lucky-form").on("submit", async function (event) {
         document.querySelector('#color-err').innerHTML = '';
       }
 
-      if(res.data.success.num_fact){
-        document.querySelector('#lucky-results').innerHTML = res.data.success.num_fact[0].data + "<br>" + res.data.success.year_fact[0].data;
-
-      }
     })
     .catch((err) => {
       console.log("ERRORS!!", err);
     })
 
-  //clear the form
-  $("#lucky-form").trigger("reset");
+    //clear the form
+    $("#lucky-form").trigger("reset");
 });

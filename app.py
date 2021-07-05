@@ -25,6 +25,17 @@ def handle_lucky_user():
     # set the incoming header data to data
     data = request.json
 
+    lucky_number = data['num_fact']
+    birth_fact = data['year_fact']
+    color = data['color']
+    color = color.lower()
+
+    #handling color flow
+    ok_colors = ['red', 'orange', 'green', 'blue']
+    for x in ok_colors:
+        if color != x:
+            color == "invalid"
+
     # return name error in JSON
     if data['name'] == '':
         return jsonify(
@@ -88,30 +99,24 @@ def handle_lucky_user():
                     "color": ["This field is required."]
                 }
             })
-    elif isinstance(data['color'], str) == False:
+    elif color == 'invalid':
         return jsonify(
             {"error":
                 {
-                    "name": ["This field is must be a string."]
+                    "color": ["This field must be red, orange, green, or blue."]
                 }
             })
-    elif data['color'] != 'red':
-        if data['color'] != 'orange':
-            if data['color'] != 'green':
-                if data['color'] != 'blue':
-                    return jsonify(
-                        {"error":
-                            {
-                                "color": ["This field is must red, orange, green, or blue."]
-                            }
-                        })
+
+    # return success with lucky num and year fact
     else:
         return jsonify(
             {
                 "success":
                     {
-                        "num_fact": [data['num_fact']],
-                        "year_fact": [data['year_fact']]
+                        "num_fact": [lucky_number],
+                        "year_fact": [birth_fact]
                     }
             }
         )
+
+    print(incoming_color)
