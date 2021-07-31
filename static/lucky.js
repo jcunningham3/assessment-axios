@@ -1,5 +1,4 @@
 /* processForm: get data from form and make AJAX call to our API. */
-
 $("#lucky-form").on("submit", async function (event) {
   event.preventDefault();
 
@@ -13,12 +12,12 @@ $("#lucky-form").on("submit", async function (event) {
   year = parseInt(year, 10)
   let email = $("#email").val();
   let color = $("#color").val();
-  let num_fact = await axios.get('http://numbersapi.com/' + rand_num);
-  let year_fact = '';
-  //make a GET request to the numbers api and set the result to variables
-  year_fact = await axios.get('http://numbersapi.com/' + year);
 
-  //create a header called data with the form data and the 2 GET requests to be sent as a parameter of the axios post request
+  let num_fact = await axios.get('http://numbersapi.com/' + rand_num);
+  let year_fact = await axios.get('http://numbersapi.com/' + year);
+
+
+  //create a header called 'data' with the form data and add the 2 GET requests to be sent as a parameter of the axios post request
   let data = {
     name: name,
     year: year,
@@ -28,19 +27,19 @@ $("#lucky-form").on("submit", async function (event) {
     year_fact: year_fact
   }
 
-  //request and send data to the api on the BACKEND for processing and handle the response and errors
+  //make  a POST request and send data to the api on the BACKEND for processing and handle the response and errors
   let res = await axios.post('http://127.0.0.1:5000/api/lucky', data)
     .then((res) => {
       //console the response data
       console.log(res);
 
-      //if there ae no errors
+      //if there are no errors
       if(res.data.success){
-        document.querySelector('#lucky-results').innerHTML = res.data.success.num_fact[0].data + "<br>" + res.data.success.year_fact[0].data;
+        document.querySelector('#lucky-results').innerHTML = res.data.success.num_fact[0]['data'] + "<br>" + res.data.success.year_fact[0]['data'];
       }
 
       //handling name errors
-      if(res.data.error.name){
+      else if(res.data.error.name){
         document.querySelector('#name-err').innerHTML = res.data.error.name[0];
       }
 
