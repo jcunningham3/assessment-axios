@@ -70,7 +70,13 @@ def handle_lucky_user():
     elif year <= 1899:
         return jsonify({"error":
                 {
-                    "year": ["This field should be between 1900 and 2021"]
+                    "year": ["This field should be between 1900 and 2000"]
+                }
+            })
+    elif year >= 2000:
+        return jsonify({"error":
+                {
+                    "year": ["This field should be between 1900 and 2000"]
                 }
             })
     elif email == '':
